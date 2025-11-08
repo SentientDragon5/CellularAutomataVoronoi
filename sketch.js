@@ -23,6 +23,18 @@ function draw() {
   delaunay = calculateDelaunay(seedPoints);
   voronoi = delaunay.voronoi([0, 0, width, height]);
   
+  let mouseIndex = delaunay.find(mouseX, mouseY);
+  let pressed = mouseIsPressed === true && mouseButton === LEFT;
+  let justPressed = pressed && !lastPressed
+  lastPressed = pressed
+  if (justPressed){
+    if (colors[mouseIndex] > 128){
+      colors[mouseIndex] = 0
+    } else {
+      colors[mouseIndex] = 255
+    }
+  }
+
   for (let i = 0; i < seedPoints.length; i++) {
     let p = seedPoints[i];
     let v = velocities[i];
